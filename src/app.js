@@ -1,30 +1,34 @@
 import matches from './matches';
 import {
+  consoleTable,
   getRandomCharacters,
   shuffle,
 } from './utils';
 import './styles.css';
 
+const modal = document.getElementById('modal');
+const grid = document.querySelector('.grid');
 const cards = shuffle(getMatches());
 
 document.addEventListener('DOMContentLoaded', () => {
+  const allCards = document.querySelectorAll('img.card');
   let state = {
     flippedCardsIds: [],
     rightMatches: [],
   };
 
   createBoard(cards);
+  console.log(consoleTable(cards));
 
-  function createBoard(cards = []) {
-    const grid = document.querySelector('.grid');
-    cards.forEach((_, index) => {
+  function createBoard() {
+    for (let index = 0; index < cards.length; index++) {
       const card = document.createElement('img');
       card.setAttribute('src', 'images/!blank.png');
       card.setAttribute('class', 'card');
       card.setAttribute('data-id', index);
       card.addEventListener('click', flipCard);
       grid.appendChild(card);
-    });
+    }
   };
 
   function flipCard() {
@@ -54,12 +58,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     state.flippedCardsIds = [];
+
+    if (state.rightMatches.length === cards.length) {
+      createCompleteStamp();
+    }
   };
   
   function hideCard(id) {
-    const allCards = document.querySelectorAll('img.card');
     allCards[id].setAttribute('src', 'images/!blank.png');
   };
+
+  function createCompleteStamp() {
+    for (let i = 0; i < allCards.length; i++) {
+      const element = allCards[i];
+      element.classList.add('disabled');
+    }
+    const stamp = document.createElement('img');
+
+    stamp.setAttribute('class', 'stamp');
+    stamp.setAttribute('src', 'images/!complete.png');
+    modal.setAttribute('class', 'modal');
+    modal.appendChild(stamp);
+  }
 });
 
 function getMatches() {
