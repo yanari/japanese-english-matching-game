@@ -4,31 +4,35 @@ import {
   getRandomCharacters,
   shuffle,
 } from './utils';
+import BlankImage from './images/blank.png';
+import CompleteImage from './images/complete.png';
 import './styles.css';
 
 const modal = document.getElementById('modal');
 const grid = document.querySelector('.grid');
 const cards = shuffle(getMatches());
+let allCards;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const allCards = document.querySelectorAll('img.card');
+  console.log(allCards);
   let state = {
     flippedCardsIds: [],
     rightMatches: [],
   };
-
+  
   createBoard(cards);
   console.log(consoleTable(cards));
-
+  
   function createBoard() {
     for (let index = 0; index < cards.length; index++) {
       const card = document.createElement('img');
-      card.setAttribute('src', 'images/!blank.png');
+      card.setAttribute('src', BlankImage);
       card.setAttribute('class', 'card');
       card.setAttribute('data-id', index);
       card.addEventListener('click', flipCard);
       grid.appendChild(card);
     }
+    allCards = document.querySelectorAll('img');
   };
 
   function flipCard() {
@@ -65,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   function hideCard(id) {
-    allCards[id].setAttribute('src', 'images/!blank.png');
+    allCards[id].setAttribute('src', BlankImage);
   };
 
   function createCompleteStamp() {
@@ -76,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stamp = document.createElement('img');
 
     stamp.setAttribute('class', 'stamp');
-    stamp.setAttribute('src', 'images/!complete.png');
+    stamp.setAttribute('src', CompleteImage);
     modal.setAttribute('class', 'modal');
     modal.appendChild(stamp);
   }
@@ -86,8 +90,8 @@ function getMatches() {
   const random = getRandomCharacters(matches);
   return random.map((character) => {
     return [
-      { name: character, image: `images/${character} - Hiragana_1.png` },
-      { name: character, image: `images/${character} - Romaji.png` },
+      { name: character, image: require(`./images/${character} - Hiragana_1.png`) },
+      { name: character, image: require(`./images/${character} - Romaji.png`) },
     ];
   }).flat();
 };
