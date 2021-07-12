@@ -1,5 +1,6 @@
 {
   "name": "japanese-english-matching-game",
+  "description": "Simple memory game to match hiragana japanese characters to romaji and vice versa.",
   "version": "1.0.0",
   "private": "true",
   "license": "MIT",
@@ -8,6 +9,10 @@
     "build": "webpack --progress"
   },
   "author": "Marcelle Yanari",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yanari/japanese-english-matching-game"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/polyfill": "^7.12.1",
