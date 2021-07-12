@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+body {
+  position: relative;
+}
+
 #app {
   background-color: #da3531;
   height: 100vh;
@@ -37,4 +41,40 @@
 
 .grid > img.card.disabled {
   pointer-events: none;
+}
+
+.modal {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+}
+
+.stamp {
+  animation-name: pulse;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  height: 50%;
+  opacity: 0;
+}
+
+@keyframes pulse{
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: .50;
+    transform-origin: 50% 50%;
+    transform: scale(5);
+    transition: all .3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

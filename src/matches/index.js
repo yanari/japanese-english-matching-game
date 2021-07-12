@@ -8,6 +8,7 @@ export default [
   'Hi',
   'Ho',
   'I',
+  'Ka',
   'Ke',
   'Ki',
   'Ko',
@@ -43,5 +44,5 @@ export default [
   'Wo',
   'Ya',
   'Yo',
-  'Yu'
+  'Yu',
 ];

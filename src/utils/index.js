@@ -17,3 +17,15 @@ export const shuffle = (array = []) => {
   }
   return result;
 };
+
+export const consoleTable = (array = []) => {
+  let table = '';
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index].name + ' ';
+    if ((index + 1) % 5 === 0) {
+      element = `${array[index].name}\n`;
+    }
+    table += element;
+  }
+  return table;
+};
