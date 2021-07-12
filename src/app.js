@@ -14,7 +14,6 @@ const cards = shuffle(getMatches());
 let allCards;
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log(allCards);
   let state = {
     flippedCardsIds: [],
     rightMatches: [],
@@ -25,14 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function createBoard() {
     for (let index = 0; index < cards.length; index++) {
-      const card = document.createElement('img');
-      card.setAttribute('src', BlankImage);
-      card.setAttribute('class', 'card');
-      card.setAttribute('data-id', index);
-      card.addEventListener('click', flipCard);
-      grid.appendChild(card);
+      const element = cards[index]; // has image and name
+      // Creating HTML elements
+      const cardContainer = document.createElement('div');
+      const cardBackFace = document.createElement('img');
+      const cardFrontFace = document.createElement('img');
+      // Setting containers attributes
+      cardContainer.setAttribute('class', 'card');
+      cardContainer.setAttribute('data-id', index);
+      cardContainer.addEventListener('click', flipCard);
+      // Setting back face source
+      cardBackFace.setAttribute('src', BlankImage);
+      // Setting front face source
+      cardFrontFace.setAttribute('class', 'front-face');
+      cardFrontFace.setAttribute('src', element.image);
+      // Appending (order matters)
+      cardContainer.appendChild(cardFrontFace);
+      cardContainer.appendChild(cardBackFace);
+      grid.appendChild(cardContainer);
     }
-    allCards = document.querySelectorAll('img');
+    allCards = document.querySelectorAll('.card');
   };
 
   function flipCard() {
@@ -41,11 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
       ...state.flippedCardsIds,
       cardId,
     ];
-    this.setAttribute('src', cards[cardId].image);
+    this.classList.add('flip');
     if (state.flippedCardsIds.length === 2) {
       setTimeout(checkForMatch, 500);
     }
   };
+  
+  function hideCard(id) {
+    allCards[id].classList.remove('flip');
+  };
+
+  function disableFlippedCards(first, second) {
+    allCards[first].removeEventListener('click', flipCard);
+    allCards[second].removeEventListener('click', flipCard);
+  }
   
   function checkForMatch() {
     const [optionOneId, optionTwoId] = state.flippedCardsIds;
@@ -54,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ...state.rightMatches,
         ...state.flippedCardsIds,
       ];
+      disableFlippedCards(optionOneId, optionTwoId);
     } else {
       setTimeout(() => {
         hideCard(optionOneId);
@@ -66,10 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.rightMatches.length === cards.length) {
       createCompleteStamp();
     }
-  };
-  
-  function hideCard(id) {
-    allCards[id].setAttribute('src', BlankImage);
   };
 
   function createCompleteStamp() {

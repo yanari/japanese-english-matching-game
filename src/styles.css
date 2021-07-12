@@ -1,3 +1,5 @@
+/* STYLES */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,18 +31,34 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   margin: auto;
+  perspective: 1000px;
   width: calc(100vw * .5);
   row-gap: 32px;
 }
 
-.grid > img.card {
+.grid > .card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  user-select: none;
+}
+
+.grid > .card.flip {
+  transform: rotateY(180deg);
+}
+
+.grid > .card > img {
+  backface-visibility: hidden;
   height: 100%;
   object-fit: contain;
+  position: absolute;
+  -webkit-user-drag: none;
   width: 100%;
 }
 
-.grid > img.card.disabled {
-  pointer-events: none;
+.grid > .card > img.front-face {
+  transform: rotateY(180deg);
+  transition: transform .5s;
 }
 
 .modal {
@@ -51,6 +69,7 @@ body {
   justify-content: center;
   position: fixed;
   width: 100vw;
+  z-index: 1;
 }
 
 .stamp {
@@ -60,6 +79,8 @@ body {
   height: 50%;
   opacity: 0;
 }
+
+/* ANIMATIONS */
 
 @keyframes pulse {
   0% {
