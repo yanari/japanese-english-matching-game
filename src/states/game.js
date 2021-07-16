@@ -3,8 +3,8 @@ import {
   shuffle,
   consoleTable,
 } from '../utils';
-import BlankImage from '../images/blank.png';
-import CompleteImage from '../images/complete.png';
+
+import { stamp, cardContainer } from '../components';
 
 export const GameState = function(page) {
   const modal = document.getElementById('modal');
@@ -23,24 +23,8 @@ export const GameState = function(page) {
   
   function createBoard() {
     for (let index = 0; index < cards.length; index++) {
-      const element = cards[index]; // has image and name
-      // Creating HTML elements
-      const cardContainer = document.createElement('div');
-      const cardBackFace = document.createElement('img');
-      const cardFrontFace = document.createElement('img');
-      // Setting containers attributes
-      cardContainer.setAttribute('class', 'card');
-      cardContainer.setAttribute('data-id', index);
-      cardContainer.addEventListener('click', flipCard);
-      // Setting back face source
-      cardBackFace.setAttribute('src', BlankImage);
-      // Setting front face source
-      cardFrontFace.setAttribute('class', 'front-face');
-      cardFrontFace.setAttribute('src', element.image);
-      // Appending (order matters)
-      cardContainer.appendChild(cardFrontFace);
-      cardContainer.appendChild(cardBackFace);
-      grid.appendChild(cardContainer);
+      const container = cardContainer(cards, index, flipCard);
+      grid.appendChild(container);
     }
     allCards = document.querySelectorAll('.card');
   };
@@ -112,12 +96,8 @@ export const GameState = function(page) {
       const element = allCards[i];
       element.classList.add('disabled');
     }
-    const stamp = document.createElement('img');
 
-    stamp.setAttribute('class', 'stamp');
-    stamp.setAttribute('src', CompleteImage);
-    modal.setAttribute('class', 'modal');
-    modal.appendChild(stamp);
+    modal.appendChild(stamp());
   }
 
   function getMatches() {
@@ -125,8 +105,8 @@ export const GameState = function(page) {
     console.log(random.length);
     return random.map((character) => {
       return [
-        { name: character, image: require(`../images/${character} - Hiragana_1.png`) },
-        { name: character, image: require(`../images/${character} - Romaji.png`) },
+        { name: character, image: require(`../images/cards/${character} - Hiragana_1.png`) },
+        { name: character, image: require(`../images/cards/${character} - Romaji.png`) },
       ];
     }).flat();
   };
