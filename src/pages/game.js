@@ -1,14 +1,13 @@
 import matches, { getRandomCharacters } from '../matches';
+import { stamp, cardContainer, button } from '../components';
 import {
   shuffle,
   consoleTable,
 } from '../utils';
+import './game_styles.css';
 
-import { stamp, cardContainer } from '../components';
-
-export const GameState = function(page) {
-  const modal = document.getElementById('modal');
-  const grid = document.querySelector('.grid');
+export const GameState = function(app, modal) {
+  const grid = initPage();
   const cards = shuffle(getMatches());
   let allCards;
   
@@ -20,6 +19,19 @@ export const GameState = function(page) {
   createBoard(cards);
 
   console.log(consoleTable(cards));
+
+  function initPage() {
+    const container = document.createElement('section');
+    container.setAttribute('class', 'container');
+
+    const grid = document.createElement('div');
+    grid.setAttribute('class', 'grid');
+
+    container.appendChild(grid);
+    app.appendChild(container);
+
+    return grid;
+  }
   
   function createBoard() {
     for (let index = 0; index < cards.length; index++) {
@@ -96,13 +108,16 @@ export const GameState = function(page) {
       const element = allCards[i];
       element.classList.add('disabled');
     }
-
+    modal.setAttribute('class', 'modal');
     modal.appendChild(stamp());
+    modal.appendChild(button('Play again', () => {
+      const event = new Event('play');
+      document.dispatchEvent(event);
+    }, 'btn--animated'));
   }
 
   function getMatches() {
     const random = getRandomCharacters(matches);
-    console.log(random.length);
     return random.map((character) => {
       return [
         { name: character, image: require(`../images/cards/${character} - Hiragana_1.png`) },

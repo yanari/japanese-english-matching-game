@@ -10,6 +10,21 @@ export function stamp() {
   return stamp;
 }
 
+export function button(label = '', clickEvent = () => {}, className) {
+  const button = document.createElement('button');
+
+  button.setAttribute('class', 'btn');
+  if (className) {
+    button.classList.add(className);
+  }
+
+  button.innerHTML = label;
+
+  button.addEventListener('click', clickEvent);
+
+  return button;
+}
+
 export function cardContainer(cards = [], index, flipCard) {
   const element = cards[index]; // has image and name
   // Creating HTML elements
