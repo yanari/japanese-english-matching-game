@@ -1,0 +1,22 @@
+h1 {
+  color: white;
+  font-size: 54px;
+  margin-bottom: 120px;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container > :first-child {
+  margin-bottom: 16px;
+}

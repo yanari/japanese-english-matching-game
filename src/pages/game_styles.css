@@ -1,0 +1,43 @@
+.container {
+  background-color: #f04f4e;
+  border-radius: 24px;
+  display: flex;
+  height: 100%;
+}
+
+.grid {
+  column-gap: 54px;
+  display: grid;
+  height: calc(100vh * .75);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  margin: auto;
+  perspective: 1000px;
+  width: calc(100vw * .5);
+  row-gap: 32px;
+}
+
+.grid > .card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  user-select: none;
+}
+
+.grid > .card.flip {
+  transform: rotateY(180deg);
+}
+
+.grid > .card > img {
+  backface-visibility: hidden;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  -webkit-user-drag: none;
+  width: 100%;
+}
+
+.grid > .card > img.front-face {
+  transform: rotateY(180deg);
+  transition: transform .5s;
+}
