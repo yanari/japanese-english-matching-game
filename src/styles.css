@@ -7,10 +7,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  position: relative;
-}
-
 #app {
   background-color: #da3531;
   height: 100vh;
@@ -40,22 +36,6 @@ body {
   animation-fill-mode: forwards;
   height: 50%;
   opacity: 0;
-}
-
-.btn {
-  cursor: pointer;
-  background-color: white;
-  border: 6px solid #da3531;
-  color: #da3531;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 8px 32px;
-}
-
-.btn.btn--animated {
-  animation-name: pulse;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
 }
 
 /* ANIMATIONS */

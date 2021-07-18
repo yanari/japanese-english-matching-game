@@ -8,7 +8,7 @@
 .grid {
   column-gap: 54px;
   display: grid;
-  height: calc(100vh * .75);
+  height: calc(100vh * .65);
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   margin: auto;
@@ -18,21 +18,32 @@
 }
 
 .grid > .card {
+  cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform .5s;
+  transition: transform .5s, box-shadow .3s;
   user-select: none;
+}
+
+.grid > .card:hover {
+  transform: translateY(-5px);
 }
 
 .grid > .card.flip {
   transform: rotateY(180deg);
 }
 
+.grid > .card.match {
+  box-shadow: 0 0 50px #ffff00;
+}
+
 .grid > .card > img {
   backface-visibility: hidden;
   height: 100%;
+  left: 0;
   object-fit: contain;
   position: absolute;
+  top: 0;
   -webkit-user-drag: none;
   width: 100%;
 }

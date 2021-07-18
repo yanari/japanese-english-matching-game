@@ -1,5 +1,25 @@
 import CompleteImage from '../images/general/complete.png';
 import BlankImage from '../images/general/blank.png';
+import FlowerImage from '../images/general/flower.svg';
+
+import './index.css';
+
+function flower() {
+  const img = document.createElement('img');
+  
+  img.height = 24;
+  img.width = 24;
+  img.setAttribute('src', FlowerImage);
+
+  return img;
+}
+
+function label(text = '') {
+  const label = document.createElement('p');
+  label.style.display = 'inline-block';
+  label.innerText = text;
+  return label;
+}
 
 export function stamp() {
   const stamp = document.createElement('img');
@@ -10,15 +30,18 @@ export function stamp() {
   return stamp;
 }
 
-export function button(label = '', clickEvent = () => {}, className) {
+export function button(text = '', clickEvent = () => {}, className) {
   const button = document.createElement('button');
 
   button.setAttribute('class', 'btn');
+  
   if (className) {
     button.classList.add(className);
   }
 
-  button.innerHTML = label;
+  button.appendChild(flower());
+  button.appendChild(label(text))
+  button.appendChild(flower());
 
   button.addEventListener('click', clickEvent);
 

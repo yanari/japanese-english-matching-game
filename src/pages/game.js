@@ -63,6 +63,7 @@ export const GameState = function(app, modal) {
         ...state.rightMatches,
         ...state.flippedCardsIds,
       ];
+      highlightRightMatch(optionOneId, optionTwoId);
       disableFlippedCards(optionOneId, optionTwoId);
       enableAllCards();
     } else {
@@ -82,6 +83,15 @@ export const GameState = function(app, modal) {
 
   function hideCard(id) {
     allCards[id].classList.remove('flip');
+  };
+
+  function highlightRightMatch(first, second) {
+    allCards[first].classList.add('match');
+    allCards[second].classList.add('match');
+    setTimeout(() => {
+      allCards[first].classList.remove('match');
+      allCards[second].classList.remove('match');
+    }, 1000);
   };
 
   function disableFlippedCards(first, second) {
