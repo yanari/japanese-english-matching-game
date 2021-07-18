@@ -16,12 +16,6 @@
   box-shadow: 0 0 50px #ffff0080;
 }
 
-.btn.btn--animated {
-  animation-name: pulse;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-
 .btn > p {
   margin: 0 24px;
 }

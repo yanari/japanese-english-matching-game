@@ -123,7 +123,7 @@ export const GameState = function(app, modal) {
     modal.appendChild(button('Play again', () => {
       const event = new Event('play');
       document.dispatchEvent(event);
-    }, 'btn--animated'));
+    }));
   }
 
   function getMatches() {
